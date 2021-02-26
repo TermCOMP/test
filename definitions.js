@@ -24,7 +24,7 @@ function seconds2str(s) {
 	return (d>0? d + 'd ' : '') + h + ':' + String(m).padStart(2,0) + ':' + String(s).padStart(2,0);
 }
 function newXMLHttp() {
-	return window.ActiveXObject ? ActiveXObject("Msxml2.XMLHTTP") : XMLHttpRequest();
+	return window.ActiveXObject ? new ActiveXObject("Msxml2.XMLHTTP") : new XMLHttpRequest();
 }
 function syncURL(url) {
 	xhttp = newHTTP();
