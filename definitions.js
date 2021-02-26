@@ -23,15 +23,43 @@ function seconds2str(s) {
 	s = s%60;
 	return (d>0? d + 'd ' : '') + h + ':' + String(m).padStart(2,0) + ':' + String(s).padStart(2,0);
 }
+function newXMLHttp() {
+	return window.ActiveXObject ? ActiveXObject("Msxml2.XMLHTTP") : XMLHttpRequest();
+}
+function syncURL(url) {
+	xhttp = newHTTP();
+	xhttp.open("GET", url, false);
+	try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
+	xhttp.send("");
+	return xhttp;
+}
+function XmlOfURL(url) {
+	return syncURL(url).responseXML;
+}
 function loadURL(url,handle) {
-  var xhttp = new XMLHttpRequest();
+  var xhttp = newXMLHttp();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       handle(this);
     }
   };
-  xhttp.open("GET", encodeURI(url));
+  xhttp.open("GET", url);
   xhttp.send();
+}
+function applyXSL(xml,xslUrl,elm) {
+	xsl = XmlOfURL(xslUrl);
+	// code for IE
+	if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+		ex = xml.transformNode(xsl);
+		elm.innerHTML = ex;
+	}
+	// code for Chrome, Firefox, Opera, etc.
+	else if (document.implementation && document.implementation.createDocument) {
+		xsltProcessor = new XSLTProcessor();
+		xsltProcessor.importStylesheet(xsl);
+		resultDocument = xsltProcessor.transformToFragment(xml, document);
+		elm.appendChild(resultDocument);
+	}
 }
 function FilteredTable(table) {
 	var ret = {};
