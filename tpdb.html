@@ -16,7 +16,8 @@
 			var base = "https://raw.githubusercontent.com/TermCOMP/TPDB/" + ver + "/";
 			loadURL(base + path,
 				function(xhttp) {
-					applyXSL(xhttp.responseText, base + "xml/xtcHTML.xsl", elm);
+					var xml = parser.parseFromString(xhttp.responseText,"text/xml");
+					applyXSL(xml, base + "xml/xtcHTML.xsl", elm);
 				}
 			);
 		} else {
