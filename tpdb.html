@@ -5,13 +5,15 @@
  <script src="definitions.js"></script>
 </head>
 <body>
-</body>
+<div id="main"></div>
 <script>
  var path = get_args["path"];
  var ver = "ver" in get_args ? get_args["ver"] : "master";
  loadURL( "https://raw.githubusercontent.com/TermCOMP/TPDB/" + ver + "/" + path,
   function (http) {
-   document.getElementsByTagName("body").innerHTML = http.responseText;
+   document.getElementById("main").innerHTML = http.responseText;
   }
  );
 </script>
+</body>
+</html>
