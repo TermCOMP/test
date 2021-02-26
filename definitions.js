@@ -30,7 +30,7 @@ function loadURL(url,handle) {
       handle(this);
     }
   };
-  xhttp.open("GET", url);
+  xhttp.open("GET", encodeURI(url));
   xhttp.send();
 }
 function FilteredTable(table) {
