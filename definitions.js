@@ -25,7 +25,7 @@ function seconds2str(s) {
 }
 var dom_parser = new DOMParser();
 function parseXML(text) {
-	dom_parser.parseFromString(text,"text/xml");
+	return dom_parser.parseFromString(text,"text/xml");
 }
 function newXMLHttp() {
 	return window.ActiveXObject ? new ActiveXObject("Msxml2.XMLHTTP") : new XMLHttpRequest();
