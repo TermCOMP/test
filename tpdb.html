@@ -9,6 +9,7 @@
 <body>
 	<div id="main"></div>
 	<script>
+		var parser = new DOMParser();
 		var elm = document.getElementById("main");
 		if( "path" in get_args ) {
 			var path = get_args["path"];
