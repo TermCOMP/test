@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
- <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
- <script src="definitions.js"></script>
-</head>
-<body>
-<div id="main"></div>
-<script>
 
- var path = get_args["path"];
- var ver = "ver" in get_args ? get_args["ver"] : "master";
- var base = "https://raw.githubusercontent.com/TermCOMP/TPDB/" + ver + "/";
- loadURL( base + path,
-  function (xhttp) {
-   applyXSL(xhttp.responseText, base + "xml/xtcHTML.xsl", document.getElementById("main").innerHTML);
-  }
- );
-</script>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<script src="definitions.js"></script>
+</head>
+
+<body>
+	<div id="main"></div>
+	<script>
+		var elm = document.getElementById("main");
+		if( "path" in get_args ) {
+			var path = get_args["path"];
+			var ver = "ver" in get_args ? get_args["ver"] : "master";
+			var base = "https://raw.githubusercontent.com/TermCOMP/TPDB/" + ver + "/";
+			loadURL(base + path,
+				function(xhttp) {
+					applyXSL(xhttp.responseText, base + "xml/xtcHTML.xsl", elm);
+				}
+			);
+		} else {
+			elm.innerHTML = "No path is specified.";
+		}
+	</script>
 </body>
+
 </html>

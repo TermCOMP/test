@@ -27,7 +27,7 @@ function newXMLHttp() {
 	return window.ActiveXObject ? new ActiveXObject("Msxml2.XMLHTTP") : new XMLHttpRequest();
 }
 function syncURL(url) {
-	xhttp = newHTTP();
+	xhttp = newXMLHttp();
 	xhttp.open("GET", url, false);
 	try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
 	xhttp.send("");
