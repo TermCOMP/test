@@ -23,6 +23,10 @@ function seconds2str(s) {
 	s = s%60;
 	return (d>0? d + 'd ' : '') + h + ':' + String(m).padStart(2,0) + ':' + String(s).padStart(2,0);
 }
+var dom_parser = new DOMParser();
+function parseXML(text) {
+	dom_parser.parseFromString(text,"text/xml");
+}
 function newXMLHttp() {
 	return window.ActiveXObject ? new ActiveXObject("Msxml2.XMLHTTP") : new XMLHttpRequest();
 }
@@ -34,7 +38,7 @@ function syncURL(url) {
 	return xhttp;
 }
 function XmlOfURL(url) {
-	return syncURL(url).responseXML;
+	return parseXML(syncURL(url).responseText);
 }
 function loadURL(url,handle) {
   var xhttp = newXMLHttp();
